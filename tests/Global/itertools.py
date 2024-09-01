@@ -1,6 +1,6 @@
 from itertools import product
-A = [1,2]
-B = [4]
+A = [1,2,3,4,5]
+B = [6]
 
 def cartesian_product(rep = 1):
     cp = product(A,B, repeat=rep) # repeat permutes all the sets among themselves said number of times.
@@ -24,3 +24,11 @@ def set_combination_replacement(n=2): # repetitions are allowed e.g.: (1,1)
     scr = list(combinations_with_replacement(A,n))
     return scr
 
+from itertools import accumulate
+import operator
+def cumulate(option):
+    acc = list(accumulate(A, func=eval(option))) #result of every step is dragged along and
+                                           #func is applied in each step
+    return acc
+
+print(cumulate("operator.mul"))
