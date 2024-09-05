@@ -29,5 +29,7 @@ import operator
 def cumulate(option):
     acc = list(accumulate(A, func=eval(option))) #result of every step is dragged along and func is applied to each element with the previous result
     return acc
-print(cumulate("operator.sub"))
+#print(cumulate("operator.sub"))
 
+from itertools import groupby
+group = groupby(A, key = lambda x:x=3) #can use a normal function too instead of lambda

@@ -1,1 +1,1 @@
-f1
+print("Your guess was higher than the answer, try again")
