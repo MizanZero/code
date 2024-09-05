@@ -31,3 +31,4 @@ while inp_is_valid == False or inp_is_correct == False:
 
     else:
         print("Only enter an integer from -10 to 10")
+
