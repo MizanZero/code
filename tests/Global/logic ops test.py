@@ -12,7 +12,5 @@ if (b and a) == (0 or 1): #'and' implies that both a and b are applicable and 'o
 else:
     print("No binary")
 
-'''
-🙏😒
-'''
+
 

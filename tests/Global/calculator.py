@@ -1,12 +1,13 @@
 try:
     num1=float(input("Please enter the first number: "))
+    op = input("Enter the desired operation between these numbers (only these are valid + - * / %): ")
     num2= float(input("Please enter the second number: "))
 
 except:
     print("Please enter numbers only lil bro 🙏😭!")
     quit(code=0)
 
-op = input("Enter the desired operation between these numbers (only these are valid + - * / %): ")
+
 if op == "+":
     print("The sum of "+str(num1)+" and "+str(num2)+" is "+str(num1+num2))
 elif op=="-":

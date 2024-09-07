@@ -4,3 +4,5 @@ list1 = [x for x in range(1, 51)]
 
 list2 = [2,2,2,2,2]
 print(list2.index(2))
+print("😋")
+

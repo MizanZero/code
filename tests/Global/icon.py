@@ -3,7 +3,7 @@ print("")
 print("")
 print("")
 print ("Philosaphawg is getting cooked today 🙏😂.")
-print (""""I am unfazed by these unsubstantial attacks 😒" ahh phlawg""")
+print (""""I stand unfazed by these unsubstantial attacks 😒" ahh phlawg""")
 print("")
 print("")
 

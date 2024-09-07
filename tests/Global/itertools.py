@@ -32,4 +32,4 @@ def cumulate(option):
 #print(cumulate("operator.sub"))
 
 from itertools import groupby
-group = groupby(A, key = lambda x:x=3) #can use a normal function too instead of lambda
+group = groupby(A, lambda x:x=3) #can use a normal function too instead of lambda
