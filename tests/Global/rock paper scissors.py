@@ -11,13 +11,13 @@ while True:
 
         if int(rounds)>0 and int(rounds)<9:
             rounds = int(rounds)
+            print("Best of "+str(rounds))
             break
         else:
-            print("Number should be from 1 to 9")
+            print("\nNumber should be from 1 to 9")
 
     else:
         print("\nThat's not a number!!!")
-        print("\nOptions(Enter number letter or word):\n1. Rock(r,R)\n2. Paper(p,P)\n3. Scissors(s,S)")
 
 
 def declare(u, n):
@@ -68,11 +68,11 @@ for round in range(int(rounds)):
             print("")
 
 if score > 0:
-    print(f"---You won! {score}/{rounds}---")
+    print(f"---You won! ({score}/{rounds})---")
 elif score < 0:
-    print(f"---You lost! {score}/{rounds}---")
+    print(f"---You lost! ({score}/{rounds})---")
 elif score == 0:
-    print(f"---It's a draw! {score}/{rounds}---(Play odd rounds to avoid draws)\n")
+    print(f"---It's a draw! ({score}/{rounds})---(Play odd rounds to avoid draws)\n")
 else:
     print("🙏 No idea what just happened")
 
