@@ -23,20 +23,21 @@ while True:
 def declare(u, n):
     det = u-n
     if det == -2 or det==1:
-        print(f"\n---You won!---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n")
+        print(f"\n---You won! (+1) ---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n")
         return 1
     elif det == 2 or det==-1:
-        print(f"\n---You lost!---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n")
+        print(f"\n---You lost! (-1) ---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n")
         return -1
     elif det == 0:
-        print(f"\n---It's a draw!---\nBoth you and computer chose: {usrchoice.capitalize()}\n")
-        return 1
+        print(f"\n---It's a draw! (+0) ---\nBoth you and computer chose: {usrchoice.capitalize()}\n")
+        return 0
     else:
         print("\n---Good job, you found a bug 👏👏👏, restart program and report it---\n")
         return 0.1
 
 
 for round in range(int(rounds)):
+    inp_valid = None
     u=0
     n = random.randint(1,3)
     print(f"---Round: {round+1}---")
@@ -45,18 +46,19 @@ for round in range(int(rounds)):
     usrinp = input("\nInput your choice: ").lower()
     if usrinp == "1" or usrinp =="rock" or usrinp =="r" or usrinp =="R":
         u = 1
-        usrchoice = tools[u]
-        score = score+declare(u,n)
     elif usrinp == "2" or usrinp =="paper" or usrinp =="p" or usrinp =="P":
         u = 2
-        usrchoice = tools[u]
-        score = score+declare(u,n)
     elif usrinp == "3" or usrinp =="scissor" or usrinp=="scissors" or usrinp =="s" or usrinp =="S":
         u = 3
-        usrchoice = tools[u]
-        score = score+declare(u,n)
     else:
         print("Enter a valid input(Enter number letter or word):\n1. Rock(r,R)\n2. Paper(p,P)\n3. Scissors(s,S)")
+        inp_valid = False
+
+
+    if inp_valid!=False:
+        usrchoice = tools[u]
+        score = score+declare(u,n)
+        print(f"Your score so far {score}")
 
     usrchoice = tools[u]
 
