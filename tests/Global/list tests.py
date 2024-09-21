@@ -11,6 +11,6 @@ list4 = ["a","A","b","B"]
 list5 = [1,3,2]
 list5.sort()
 list4.sort()
-print(f"{list4}")
+#print(list4)
 #print(list4.sort())
 #print(list3.sort())
