@@ -6,11 +6,13 @@ else:
 
 b = int(input("Enter integer for b: "))
 a = int(input("Enter integer for a: "))
+c = int(input("Enter integer for c: "))
 
-if (b and a) == (0 or 1): #'and' implies that both a and b are applicable and 'or' implies that either 0 or 1 can be found for declaring true, which finally implies that if either 0 or 1 are found after checking a and b
-    print("Binary")
+
+if len({a,b,c} & {0,1,2}) == 2: #'and' implies that both a and b are applicable and 'or' implies that either 0 or 1 can be found for declaring true, which finally implies that if either 0 or 1 are found after checking a and b
+    print("2 common")
 else:
-    print("No binary")
+    print("Not")
 
-
+#print(bool ({}))
 
