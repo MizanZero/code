@@ -6,7 +6,7 @@ print("Guess a random integer from -10 to 10")
 
 
 ans = random.randint(-10,10)
-print (ans) #remove first hash only to get the right answer printed at the beginning for debug
+#print (ans) #remove first hash only to get the right answer printed at the beginning for debug
 
 
 def getinput():

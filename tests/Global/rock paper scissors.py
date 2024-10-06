@@ -5,6 +5,7 @@ round = 0
 print("\n\n\n\n")
 score = 0
 computer_score = 0
+usrchoice=""
 
 while True:
     rounds = input("Recommended to play odd rounds to avoid draws\nEnter number of rounds(max 9): ")
@@ -22,27 +23,28 @@ while True:
 
 
 def declare(u, n):
-    det = u-n
+    dif = u-n
     global computer_score, score
-    if det == -2 or det==1:
+    if dif == -2 or dif==1:
         print(f"\n---You won! (+1) ---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n")
         score = score+1
-        return 1
-    elif det == 2 or det==-1:
+        return 1,f"\n---You won! (+1) ---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n"
+    elif dif == 2 or dif==-1:
         print(f"\n---You lost! (-1) ---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n")
         computer_score = computer_score+1
-        return 0
-    elif det == 0:
+        return 0,f"\n---You lost! (-1) ---\nYour choice: {usrchoice.capitalize()}\nComputer's choice: {comchoice.capitalize()}\n"
+    elif dif == 0:
         print(f"\n---It's a draw! (+0) ---\nBoth you and computer chose: {usrchoice.capitalize()}\n")
-        return 0
+        return 0,f"\n---It's a draw! (+0) ---\nBoth you and computer chose: {usrchoice.capitalize()}\n"
     else:
-        print("\n---Good job, you found a bug 👏👏👏, restart program and report it---\n")
-        return 0.1
+        print("\n---Good job, you found a bug 👏👏👏, restart the program and report the bug---\n")
+        return 0.1,"\n---Good job, you found a bug 👏👏👏, restart program and report it---\n"
 
 
 for round in range(int(rounds)):
     inp_valid = None
     u=0
+    n=0
     n = random.randint(1,3)
     print(f"---Round: {round+1}---")
     comchoice = tools[n].capitalize()
@@ -82,3 +84,36 @@ elif score == computer_score:
 else:
     print("🙏 No idea what just happened")
 
+
+
+def show_scorecard(rounds=0,u=0,n=0):
+
+    add_score=declare(u,n)[0]
+    print (add_score)
+    print("\n\n\n\n\n\n\n\n\n")
+    print(f'''----------------------------------------------------------------
+                    You are playing best of []
+
+                          ---Round: {round}---
+You: 0                                               Computer: 0
+
+
+''')
+    if usr_has_entered == True:
+        print("\n\n\n\n")
+    else:
+        print('''                        Make your choice:
+                         -Rock (1,R,r)
+                         -Paper (2,P,p)
+                         -Scissors (3,S,s)''')
+    
+    print (f'''
+
+You: {tools[u].capitalize()}                               Computer: {tools[n].capitalize()}
+
+
+''')
+
+
+
+show_scorecard()
