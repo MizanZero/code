@@ -1,6 +1,5 @@
 import random
 tools = ["","rock","paper","scissors"]
-usr_has_entered = True
 round = 0
 print("\n\n\n\n")
 score = 0
@@ -42,7 +41,7 @@ def declare(u, n):
 
 
 for round in range(int(rounds)):
-    inp_valid = None
+    usr_choice_valid = None #Clear the value of a variable 
     u=0
     n=0
     n = random.randint(1,3)
@@ -58,15 +57,15 @@ for round in range(int(rounds)):
         u = 3
     else:
         print("Enter a valid input(Enter number letter or word):\n1. Rock(r,R)\n2. Paper(p,P)\n3. Scissors(s,S)")
-        inp_valid = False
+        usr_choice_valid = False
 
 
-    if inp_valid!=False:
+    if usr_choice_valid!=False:
         usrchoice = tools[u].capitalize()
         declare(u,n)
         print(f"Your score: {score}         Computer score: {computer_score}\n")
 
-    usrchoice = tools[u].capitalize
+    usrchoice = tools[u].capitalize()
 
     while True:
         conf=input("Enter 'y' to proceed to next round/result: ")
@@ -88,8 +87,8 @@ else:
 
 def show_scorecard(rounds=0,u=0,n=0):
 
-    add_score=declare(u,n)[0]
-    print (add_score)
+    #add_score=declare(u,n)[0]
+    #print (add_score)
     print("\n\n\n\n\n\n\n\n\n")
     print(f'''----------------------------------------------------------------
                     You are playing best of []
@@ -99,7 +98,7 @@ You: 0                                               Computer: 0
 
 
 ''')
-    if usr_has_entered == True:
+    if usr_choice_valid == True:
         print("\n\n\n\n")
     else:
         print('''                        Make your choice:
@@ -109,7 +108,7 @@ You: 0                                               Computer: 0
     
     print (f'''
 
-You: {tools[u].capitalize()}                               Computer: {tools[n].capitalize()}
+You: {usrchoice.capitalize()}                                         Computer: {usrchoice.capitalize()}
 
 
 ''')
