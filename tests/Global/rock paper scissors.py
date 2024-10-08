@@ -91,14 +91,15 @@ def show_scorecard(rounds=0,u=0,n=0):
     #print (add_score)
     print("\n\n\n\n\n\n\n\n\n")
     print(f'''----------------------------------------------------------------
+          
                     You are playing best of []
 
                           ---Round: {round}---
-You: 0                                               Computer: 0
+You: {score}                                               Computer: {computer_score}
 
 
 ''')
-    if usr_choice_valid == True:
+    if usr_choice_valid != False:
         print("\n\n\n\n")
     else:
         print('''                        Make your choice:
@@ -108,7 +109,7 @@ You: 0                                               Computer: 0
     
     print (f'''
 
-You: {usrchoice.capitalize()}                                         Computer: {usrchoice.capitalize()}
+You: {usrchoice.capitalize()}                                         Computer: {comchoice.capitalize()}
 
 
 ''')
