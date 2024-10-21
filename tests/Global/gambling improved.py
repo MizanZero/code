@@ -32,6 +32,10 @@ while scores[(current_player-1)]<50 and current_player <= nplayers:
         if current_player < nplayers:
             current_player+=1
             print (f"\nYou ended your turn--- You scored: {scores[current_player-1]}\nPlease pass to the next player")
+        else:
+            print(f"\nYou ended your turn--- You scored: {scores[current_player-1]}\nPlease pass to the next player")
+            break
+        
         dice = 0
     else:
         dice = roll_dice()
