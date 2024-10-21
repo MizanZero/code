@@ -17,21 +17,21 @@ while True: #hint: checkhow break has been used here in this loop
 
 
 scores = [0 for _ in range(nplayers)]
-print (scores)
+print (nplayers)
 
 current_player = 1
 
 
-while scores[current_player-1]<50 and current_player <= nplayers:
+while scores[(current_player-1)]<50 and current_player <= nplayers:
     
     dice = 0
     should_roll = input("Do you want to roll(Enter 'y' to roll): ")
 
-    if should_roll.lower() != "y": #hint: good usage of break
+    if should_roll.lower()!='y': #hint: good usage of break
         #print(current_player)
-        current_player = current_player + 1
-        if current_player <= nplayers:
-            print (f"\nYou ended your turn--- You scored: {score}\nPlease pass to the next player")
+        if current_player < nplayers:
+            current_player+=1
+            print (f"\nYou ended your turn--- You scored: {scores[current_player-1]}\nPlease pass to the next player")
         dice = 0
     else:
         dice = roll_dice()
@@ -54,4 +54,3 @@ while scores[current_player-1]<50 and current_player <= nplayers:
 
 for _ in range(len(scores)):
     print(f"\nPlayer {_+1} scored {scores[_]}")
-  
