@@ -5,6 +5,8 @@ print("\n\n\n\n")
 score = 0
 computer_score = 0
 usrchoice=""
+usr_choice_valid = None
+comchoice = ""
 
 while True:
     rounds = input("Recommended to play odd rounds to avoid draws\nEnter number of rounds(max 9): ")
@@ -40,7 +42,10 @@ def declare(u, n):
         return 0.1,"\n---Good job, you found a bug 👏👏👏, restart program and report it---\n"
 
 
-for round in range(int(rounds)):
+def take_choice():
+    global comchoice
+    global usrchoice
+    global usr_choice_valid
     usr_choice_valid = None #Clear the value of a variable 
     u=0
     n=0
@@ -74,6 +79,11 @@ for round in range(int(rounds)):
         else:
             print("")
 
+
+
+for round in range(int(rounds)):
+    ""
+
 if score > computer_score:
     print(f"---You won! ({score}:{computer_score})---")
 elif score < computer_score:
@@ -100,7 +110,7 @@ You: {score}                                               Computer: {computer_s
 
 ''')
     if usr_choice_valid != False:
-        print("\n\n\n\n")
+        take_choice()
     else:
         print('''                        Make your choice:
                          -Rock (1,R,r)
@@ -110,10 +120,7 @@ You: {score}                                               Computer: {computer_s
     print (f'''
 
 You: {usrchoice.capitalize()}                                         Computer: {comchoice.capitalize()}
-
-
 ''')
-
 
 
 show_scorecard()
