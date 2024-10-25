@@ -1,5 +1,10 @@
 
 
+def input(inpmsg):
+ inp = input(inpmsg)
+ return inp.isnumeric(),inp
+ 
+
 import random
 
 comp_role=0
@@ -66,5 +71,5 @@ usrlist=[0,0,0,0,0,0]
 
 while usrthrow != compthrow:
  compthrow = random.randint(1,10)
- 
+ while 
 
