@@ -2,7 +2,7 @@
 import random
 
 def getInput(inpmsg):
- inp = getInput(inpmsg)
+ inp = input(inpmsg)
  return inp.isnumeric(),inp
  
 
@@ -11,13 +11,13 @@ def getInput(inpmsg):
 def updateScores(out="notout",u=0,c=0):
 
  if out == "out":
-  if comp_role==0:
+  if comRole==0:
     usrScore += u
   else:
     comScore += c
  
  else:
-  if comp_role==0:
+  if comRole==0:
     compScore += c
   else:
     usrScore += u
@@ -27,8 +27,8 @@ def updateScores(out="notout",u=0,c=0):
 
 
 usrScore,comScore = 0,0
-comp_role=0
-player_role=0
+comRole=0
+usrRole=0
 oddList = ["o","od","odd","oddd","d","1","11"]
 eveList = ["e","even","ven","en","v","n","2","22"]
 bias_list = [0,0,0,0,1]
@@ -39,7 +39,7 @@ outMsg = {
 
 
 while True:
- oddoreve= getInput("Odd or even: ") 
+ oddoreve= input("Odd or even: ") 
  if (oddoreve in oddList):
   usrOdd = True 
   break
@@ -49,15 +49,14 @@ while True:
   break
  
  else:
-  print ("Congrats for breaking the program, your reward is 🎉NOTHING🎉")
-  exit(code=0) 
+  print ("Please enter odd or even")
 
 
 
 
 
 while True:
- oddeve = getInput("Enter natural number for odd or even (max 10): ")
+ oddeve = input("Enter natural number for odd or even (max 10): ")
  
 #oddoreve.lower() in oddstr) or #(oddoreve.lower() in evestr)
 
@@ -71,7 +70,7 @@ com_oddeve=random.randint(1,10)
 print(f"Computer chose: {com_oddeve}")
 
 
-if oddeve%2 == 0:
+if (com_oddeve+oddeve)%2 == 0:
  iseven = True
 else:
  iseven = False
@@ -81,35 +80,68 @@ else:
 
 if usrOdd and iseven:
  print(f"{com_oddeve}+{oddeve} = {com_oddeve+oddeve}. Computer will chose.")
- comp_role = bias_list[random.randint(len(bias_list))]
- print (comp_role)
- exit(code=0)
- player_role = 1-comp_role
+ comRole = bias_list[random.randint(0, len(bias_list)-1)]
+ print (comRole)
+ #exit(code=0)
+ usrRole = 1-comRole
  
- if comp_role==0:
+ if comRole==0:
   print("Computer chose to bat")
- elif comp_role==1:
+ elif comRole==1:
   print("Computer chose to bowl")
 
+else:
+  print(f"{com_oddeve}+{oddeve} = {com_oddeve+oddeve}")
+  while True:
+   batorbowl = input("Enter Bat or Bowl: ")
+ 
+   if batorbowl.lower() in ["bat","ba","at"]:
+    usrRole = 0
+    comRole = 1
+    print ("You chose to bat")
+    print()
+    break
+ 
+   elif batorbowl.lower() in ["bowl", "bo", "ow", "owl", "wl"]:
+    usrRole=1
+    comRole=0
+    print("You chose to bowl")
+    print()
+    break
 
 
-usrThrow = 0, compThrow = 0
+
+usrThrow = 0
+compThrow = 0
 usrlist=[0,0,0,0,0,0]
 
 
-
-compThrow = random.randint(1,10)
-usrThrow = getInput("Throw your number: ")
-
-while not getInput("Throw your number: ")[0]:
- usrThrow = getInput("Throw your number: ")
- if usrThrow[0]:
+def match():
+ compThrow = random.randint(1,10)
+ usrThrow = input("Throw your number: ")
+ 
+ while not usrThrow.isnumeric():
+  usrThrow = input("Throw your number: ")
   if int(usrThrow) <= 10:
    usrThrow = int(usrThrow)
    if usrThrow == compThrow:
-     print(outMsg[player_role])
-     updateScores("out",usrThrow,compThrow)
+     print(outMsg[usrRole])
+     usrScore+=updateScores("out",usrThrow,compThrow)[0]
    else:
-     updateScores("notout",usrThrow,compThrow)
+     comScore+=updateScores("notout",usrThrow,compThrow)[1]
 
-  
+
+
+match() 
+
+
+if usrScore>comScore:
+ bat = "computer"
+else:
+ bat = "player"
+
+
+usrRole, comRole = comRole, usrRole
+
+
+match() 
