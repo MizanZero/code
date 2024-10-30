@@ -15,11 +15,10 @@ def oddOrEve():
         return 'eve'
 
 def match():
-    usrThrow,=inp("Throw a number: ")[0,1]
-    if 
+    [usrThrow,usrNum]=inp("Throw a number: ")[0:2]
+    return usrThrow
 
-
-
+print(match())
 
 
 
