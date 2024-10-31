@@ -17,22 +17,26 @@ def isOut(p,c):
 
 
 def controlledInp(l1,l2,r1,r2,dataType,inpMsg,warning=""):
+    
     if dataType=='int':
-        inp = inp(inpMsg) 
         while True:
-            inp=inp(inpMsg) 
-            if inp[1]:
-                inp = int(inp) 
+            takeInp=inp(inpMsg)
+            takeInp=list(takeInp) #takes input
+            if takeInp[1]: 
+                takeInp[0] = int(takeInp[0]) 
+                break 
             else:
-                print(warning)
+                print(warning,"first loop in contrInp") 
+    else:
+        takeInp=inp(inpMsg)
+        takeInp=list(takeInp) #takes input
     while True:
-        inp=input(inpMsg).lower() 
-        if inp in l1:
-            return r1,inp.isnumeric() #return desired return val,bool for numeric
-        elif inp in l2:
-            return r2,inp.isnumeric() #same 
+        if takeInp[0] in l1:
+            return r1,takeInp[1] #return desired return val,bool for numeric
+        elif takeInp[0] in l2:
+            return r2,takeInp[1] #same 
         else:
-            print(warning)
+            print(warning,"second loop in contrInp")
 
 
 
@@ -43,26 +47,23 @@ def throw():
 
 
 oddOrEve = controlledInp(eveList,oddList,'eve','odd',False,"Enter Odd or Eve: ") 
-if oddOrEve == 'eve':
-    oddOrEve='eve'
-else:
-    oddOrEve='odd'
 
 
-
-oddEve=controlledInp(oddList,eveList,'odd','eve','int',"Enter a number for Odd or Eve(max: 10): ",'Only enter odd or eve(max: 10)')
+oddEve=controlledInp(range(1,10,2),range(2,10,2),'odd','eve','int',"Enter a number for Odd or Eve(max: 10): ",'Only enter odd or eve(max: 10)')
+# tf does the above do?
 print (oddEve) #debug statement 
 
-if oddEve[1]: 
-    if int(oddEve[1]) in range(1,11): 
+
+#change the below blocks they are double checking 
+if oddEve[1]:
+    if int(oddEve[0]) in range(1,11):
         oddEve = int(oddEve[0]) 
         com_oddOrEve=random.randint(1,10) 
         print (com_oddOrEve,oddEve) 
-        if (com_oddOrEve+oddEve)%2==0 and oddEve=='eve': 
+        if (com_oddOrEve+oddEve)%2==0 and oddEve=='eve':
             batOrBowl=inp('You won, enter Bat or Ball: ') 
-        elif (com_oddOrEve+oddEve)%2==1 and oddEve=='odd': 
+        elif (com_oddOrEve+oddEve)%2==1 and oddEve=='odd':
             batOrBowl=inp('You won, enter Bat or Ball: ') 
-    else 
 
 
 
