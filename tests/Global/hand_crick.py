@@ -54,6 +54,7 @@ oddEve=controlledInp(range(1,10,2),range(2,10,2),'odd','eve','int',"Enter a numb
 print (oddEve) #debug statement 
 
 
+
 #change the below blocks they are double checking 
 if oddEve[1]:
     if int(oddEve[0]) in range(1,11):
