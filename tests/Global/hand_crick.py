@@ -16,8 +16,8 @@ def isOut(p,c):
     return False if p==c else True 
 
 
-def controlledInp(l1,l2,r1,r2,takeInt,inpMsg,warning=""):
-    if takeInt:
+def controlledInp(l1,l2,r1,r2,dataType,inpMsg,warning=""):
+    if dataType=='int':
         inp = inp(inpMsg) 
         while True:
             inp=inp(inpMsg) 
@@ -37,7 +37,6 @@ def controlledInp(l1,l2,r1,r2,takeInt,inpMsg,warning=""):
 
 
 
-
 def throw():
     [usrThrow,usrNum]=inp("Throw a number: ")[0:2] 
     return usrThrow,usrNum,random.randint(1,10) #return usr value, boolean for numeric, and a random from 1 to 10
@@ -51,17 +50,29 @@ else:
 
 
 
-oddEve=controlledInp(oddList,eveList,'odd','eve',True,"Enter a number for Odd or Eve(max: 10): ",'Only enter odd or eve(max: 10)')
+oddEve=controlledInp(oddList,eveList,'odd','eve','int',"Enter a number for Odd or Eve(max: 10): ",'Only enter odd or eve(max: 10)')
 print (oddEve) #debug statement 
 
-if oddEve[1]:
-    if int(oddEve[1]) in range(1,11):
-        oddEve = int(oddEve[0])
-        com_oddOrEve=random.randint(1,10)
-        print (com_oddOrEve,oddEve)
-        if (com_oddOrEve+oddEve)%2==0 and oddEve=='eve':
-            batOrBowl=inp('You won, enter Bat or Ball: ')
-        elif (com_oddOrEve+oddEve)%2==1 and oddEve=='odd':
-            batOrBowl=inp('You won, enter Bat or Ball: ')
+if oddEve[1]: 
+    if int(oddEve[1]) in range(1,11): 
+        oddEve = int(oddEve[0]) 
+        com_oddOrEve=random.randint(1,10) 
+        print (com_oddOrEve,oddEve) 
+        if (com_oddOrEve+oddEve)%2==0 and oddEve=='eve': 
+            batOrBowl=inp('You won, enter Bat or Ball: ') 
+        elif (com_oddOrEve+oddEve)%2==1 and oddEve=='odd': 
+            batOrBowl=inp('You won, enter Bat or Ball: ') 
+    else 
+
+
+
+
+
+
+
+
+
+
+
 
 
