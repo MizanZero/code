@@ -95,32 +95,32 @@ else:
 
 
 
-def show_scorecard(rounds=0,u=0,n=0):
-
-    #add_score=declare(u,n)[0]
-    #print (add_score)
-    print("\n\n\n\n\n\n\n\n\n")
-    print(f'''----------------------------------------------------------------
-          
-                    You are playing best of []
-
-                          ---Round: {round}---
-You: {score}                                               Computer: {computer_score}
-
-
-''')
-    if usr_choice_valid != False:
-        take_choice()
-    else:
-        print('''                        Make your choice:
-                         -Rock (1,R,r)
-                         -Paper (2,P,p)
-                         -Scissors (3,S,s)''')
-    
-    print (f'''
-
-You: {usrchoice.capitalize()}                                         Computer: {comchoice.capitalize()}
-''')
-
-
-show_scorecard()
+#def show_scorecard(rounds=0,u=0,n=0):
+#
+#    #add_score=declare(u,n)[0]
+#    #print (add_score)
+#    print("\n\n\n\n\n\n\n\n\n")
+#    print(f'''----------------------------------------------------------------
+#          
+#                    You are playing best of []
+#
+#                          ---Round: {round}---
+#You: {score}                                               Computer: {computer_score}
+#
+#
+#''')
+#    if usr_choice_valid != False:
+#        take_choice()
+#    else:
+#        print('''                        Make your choice:
+#                         -Rock (1,R,r)
+#                         -Paper (2,P,p)
+#                         -Scissors (3,S,s)''')
+#    
+#    print (f'''
+#
+#You: {usrchoice.capitalize()}                                         Computer: {comchoice.capitalize()}
+#''')
+#
+#
+#show_scorecard()
