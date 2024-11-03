@@ -51,8 +51,8 @@ def decide(l1,l2,r1,r2,dataType,inpMsg,warning=""): #return input, r1
 
 def throw(roleMsg):
     print(roleMsg)
-    usrNum=decide(range(1,11),range(1,11),'','','int',"Throw a number: ")[0]
-    return usrNum,random.randint(1,10) #return usr value, and a random from 1 to 10
+    usrThrow=decide(range(1,11),range(1,11),'','','int',"Throw a number: ")[0] #take an integer input from 1 to 10
+    return usrThrow,random.randint(1,10) #return usr value, and a random from 1 to 10
 
 
 
@@ -64,12 +64,12 @@ def switchRole(batting):
 
 
 oddOrEve = decide(eveList,oddList,'eve','odd','',"Enter Odd or Eve: ","Only enter Odd or Eve!")[1]  #stores odd or eve 
-print (oddOrEve) #debug statement
+#print (oddOrEve) #debug statement
 
 
 oddEveVal=decide(range(1,10,2),range(2,10,2),'odd','eve','int',"Enter a number for Odd or Eve(max: 10): ","Only enter odd or eve(max: 10)")
 oddEveVal=oddEveVal[0] 
-print (oddEveVal) #debug statement 
+#print (oddEveVal) #debug statement 
 
 #check if odd or eve 
 comOddEveVal = random.randint(1,10)
@@ -80,49 +80,45 @@ else:
     usrWillChoose=False
 
 
-#if usr won oddEve ask for bat or ball
+#if usr won oddEve ask for bat or ball 
 if usrWillChoose:
     print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"\nYou can choose")
     batting=decide(batList,bowlList,'usr','com','notInt',"Batting or Bowling: ","Enter a valid choice!\n")[1] #batting takes usr or com
 else:
-    batting=random.choice(['com' for x in biasList if x==0]+['usr'])
+    batting=random.choice(['com' for x in biasList if x==0]+['usr']) #computer chooses
     if batting == 'com':
         comRole='bat'
+        usrRole = 'bowl'
     else:
         comRole='bowl'
+        usrRole='bat'
     print("Coumputer chose to",comRole)
 
 
+#defining user and computer roles
+if usrRole=='bat':
+    roleMsg="You are batting"
+else:
+    roleMsg="You are bowling"
 
 isNotOut=True
-teamsBowled = 0
+inning = 1
 
 
 
 def declareOut(batting):
     return "You took a wicket!" if batting == 'com' else "You lost a  wicket!"
 
+thrown={'usr':0,'com':0}  #stores number thrown 
+
 
 def easyMatch():
-    global teamsBowled
-    if teamsBowled==2:
-        return score['usrScore'],score['comScore']
-    if batting == 'usr':
-        roleMsg = "You are batting"
-    else:
-        roleMsg="You are bowling"
-    global batScore
-    global isNotOut
-    while isNotOut and batScore<=50 and teamsBowled!=2: 
-        [batThrow,bowlThrow] = throw(roleMsg) 
-        isNotOut=outOrNot(batThrow,bowlThrow) 
-        batScore+=batThrow 
-    print(declareOut(batting))
-    score[batting+'Score'] = batScore 
-    print('Runs: ',batScore)
-    teamsBowled = teamsBowled+1
-    switchRole(batting)
-    easyMatch()
+    for inning in range(2):
+        while isNotOut:
+            thrown['usr'],thrown['com']=throw(roleMsg) 
+            score[batting+'Score']+=thrown[batting] 
+            
+
 
 easyMatch()
 
