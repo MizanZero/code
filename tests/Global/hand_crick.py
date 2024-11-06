@@ -132,7 +132,7 @@ def easyMatch():
             print(roleMsg)
             score[batting+'Score']+=thrown[batting] 
             print("Batsman score:",score)
-            thrown['usr'],thrown['com']=throw(roleMsg) 
+            [thrown['usr'],thrown['com']]=throw(roleMsg) 
             isNotOut=outOrNot(thrown['usr'],thrown['com']) 
         switchRole(batting) 
 
