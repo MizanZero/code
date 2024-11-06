@@ -131,6 +131,7 @@ def easyMatch():
             print('Total innnigs:',totalInnings)
             print(roleMsg)
             score[batting+'Score']+=thrown[batting] 
+            print("Batsman score:",score)
             thrown['usr'],thrown['com']=throw(roleMsg) 
             isNotOut=outOrNot(thrown['usr'],thrown['com']) 
         switchRole(batting) 
