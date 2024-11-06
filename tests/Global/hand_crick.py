@@ -93,6 +93,7 @@ if usrWillChoose:
     batting=decide(batList,bowlList,'usr','com','notInt',"Batting or Bowling: ","Enter a valid choice!\n")[1] #batting takes usr or com
 else:
     batting=random.choice(['com' for x in biasList if x==0]+['usr']) #computer chooses
+    print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"/nYou lost")
 
 
 if batting == 'com':
