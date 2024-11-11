@@ -134,7 +134,7 @@ def easyMatch():
             print("Batsman score:",score)
             [thrown['usr'],thrown['com']]=throw(roleMsg) 
             isNotOut=outOrNot(thrown['usr'],thrown['com']) 
-        score={x:0 for x:y in score}
+        score={x:0 for x in score.keys()}
         switchRole(batting) 
 
 
