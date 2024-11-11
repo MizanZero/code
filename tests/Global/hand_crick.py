@@ -90,7 +90,7 @@ else:
 #if usr won oddEve ask for bat or ball 
 if usrWillChoose:
     print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"\nYou can choose")
-    batting=decide(batList,bowlList,'usr','com','notInt',"Batting or Bowling: ","Enter a valid choice!\n")[1] #batting takes usr or com
+    batting=decide(batList,bowlList,'usr','com','notInt',"Batting or Bowling: ","Enter a valid choice!\n")[1] #batting stores usr or com
 else:
     batting=random.choice(['com' for x in biasList if x==0]+['usr']) #computer chooses
     print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"/nYou lost")
@@ -131,7 +131,7 @@ def easyMatch():
             print('Total innnigs:',totalInnings)
             print(roleMsg)
             score[batting+'Score']+=thrown[batting] 
-            print("Batsman score:",score)
+            print("Batsman score:",score[batting+'Score'])
             [thrown['usr'],thrown['com']]=throw(roleMsg) 
             isNotOut=outOrNot(thrown['usr'],thrown['com']) 
         score={x:0 for x in score.keys()}
