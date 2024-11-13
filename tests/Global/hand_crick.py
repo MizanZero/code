@@ -124,6 +124,7 @@ thrown={'usr':0,'com':0}  #stores number thrown
 totalInnings = 2
 
 def easyMatch():
+    global score
     isNotOut=True 
     for inning in range(1,totalInnings+1): 
         while isNotOut:
@@ -135,6 +136,9 @@ def easyMatch():
             [thrown['usr'],thrown['com']]=throw(roleMsg) 
             isNotOut=outOrNot(thrown['usr'],thrown['com']) 
         score={x:0 for x in score.keys()}
+        isNotOut=True
+        inning=1
+        thrown={x:0 for x in thrown.keys()}
         switchRole(batting) 
 
 
