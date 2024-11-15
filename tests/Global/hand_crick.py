@@ -30,9 +30,10 @@ def outOrNot(p,c): #invalid for -1 invalid2 for any other invalid, True for out,
     if -1 in [p,c]:
         return 'invalid'
     elif p!=c: 
-        return True
+        return True 
     elif p==c:
-        return False
+        declareOut(batting)
+        return False 
     else:
         return 'invalid2'
 
@@ -59,13 +60,13 @@ def switchRole(batting):
     global usrRole
     global comRole
     if batting=='usr':
-        batting='com'
-        usrRole='bowl'
-        comRole='bat'
+        batting='com' 
+        usrRole='bowl' 
+        comRole='bat' 
     else:
-        batting='usr'
-        usrRole='bat'
-        comRole='bowl'
+        batting='usr' 
+        usrRole='bat' 
+        comRole='bowl' 
 
 
 
@@ -89,10 +90,11 @@ else:
 
 #if usr won oddEve ask for bat or ball 
 if usrWillChoose:
-    print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"\nYou can choose")
+    print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"\nYou can choose") 
     batting=decide(batList,bowlList,'usr','com','notInt',"Batting or Bowling: ","Enter a valid choice!\n")[1] #batting takes usr or com
 else:
     batting=random.choice(['com' for x in biasList if x==0]+['usr']) #computer chooses
+    print(oddEveVal,'+',comOddEveVal,'=',oddEveVal+comOddEveVal,"\nComputer's choice") 
 
 
 if batting == 'com':
@@ -126,24 +128,24 @@ def easyMatch():
     isNotOut=True 
     for inning in range(1,totalInnings+1): 
         while isNotOut:
-            print('Inning:',inning) 
-            print('Total innnigs:',totalInnings)
-            print(roleMsg)
+            print('Inning:',inning,'|','Total innnigs:',totalInnings) 
+            print(roleMsg) 
             score[batting+'Score']+=thrown[batting] 
             thrown['usr'],thrown['com']=throw(roleMsg) 
             isNotOut=outOrNot(thrown['usr'],thrown['com']) 
+
         switchRole(batting) 
 
 
-easyMatch()
+easyMatch() 
 
 def declareResult():
     if score['usrScore'] > score['comScore']:
-        print("You won!\n",score['usrScore'],":",score['comScore'])
+        print("You won!\n",score['usrScore'],":",score['comScore']) 
     elif score['usrScore'] < score['comScore']:
-        print("You lost!\n",score['usrScore'],":",score['comScore'])
+        print("You lost!\n",score['usrScore'],":",score['comScore']) 
 
     else:
-        print("Close Game! It was a tie!",score['comScore'])
+        print("Close Game! It was a tie!",score['comScore']) 
 
-declareResult()
+declareResult() 
