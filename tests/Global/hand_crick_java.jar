@@ -1,0 +1,140 @@
+// This code is a simple batting and bowling game simulation.
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class BattingBowlingGame {
+    private static final String[] oddList = {"odd", "od", "dd", "do", "o", "d"};
+    private static final String[] eveList = {"even", "eve", "ven", "eve", "ev", "ve", "e"};
+    private static final String[] batList = {"batting", "bat", "at", "att", "atting", "ting", "tting"};
+    private static final String[] bowlList = {"bowl", "ball", "bal", "owl", "all", "al"};
+    private static final int[] biasList = {0, 0, 0, 0, 1};
+
+    private static int userScore = 0;
+    private static int computerScore = 0;
+    private static int[] score = {0, 0}; // 0 for user, 1 for computer
+    private static int[] finalScore = {-1, -1}; // 0 for computer, 1 for user
+    
+    private static String battingRole;
+    private static String userRole;
+    private static String computerRole;
+    private static String roleMessage;
+    private static boolean isNotOut = true;
+    private static int inning = 1;
+    private static final int totalInnings = 2;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        String oddOrEveChoice = decide(eveList, oddList, "Enter Odd or Eve: ", "Only enter Odd or Eve!")[1]; // stores odd or eve
+
+        int oddEveValue = decide(range(1, 10, 2), range(2, 10, 2), "Enter a number for Odd or Eve(max: 10): ", "Only enter a natural number(max: 10)")[0];
+        
+        int computerOddEveValue = random.nextInt(10) + 1;
+        int checkOddEveValue = oddEveValue + computerOddEveValue; // sum to check for odd/even
+        boolean userWillChoose = (checkOddEveValue % 2 == 0 && oddOrEveChoice.equals("eve")) || (checkOddEveValue % 2 == 1 && oddOrEveChoice.equals("odd"));
+
+        if (userWillChoose) {
+            System.out.println(oddEveValue + " + " + computerOddEveValue + " = " + (oddEveValue + computerOddEveValue) + "\nYou can choose");
+            battingRole = decide(batList, bowlList, "Batting or Bowling: ", "Enter a valid choice!\n")[1]; // batting stores user or computer
+        } else {
+            battingRole = random.nextBoolean() ? "com" : "usr"; // computer chooses
+            System.out.println(oddEveValue + " + " + computerOddEveValue + " = " + (oddEveValue + computerOddEveValue) + "\n\nYou lost");
+        }
+
+        if (battingRole.equals("com")) {
+            computerRole = "bat";
+            userRole = "bowl";
+        } else {
+            computerRole = "bowl";
+            userRole = "bat";
+        }
+        System.out.println("Computer chose to " + computerRole);
+
+        roleMessage = userRole.equals("bat") ? "You are batting" : "You are bowling";
+
+        easyMatch();
+
+        declareResult();
+    }
+
+    private static void easyMatch() {
+        for (inning = 1; inning <= totalInnings; inning++) {
+            while (isNotOut) {
+                if (score[battingRole.equals("usr") ? 0 : 1] >= 100) {
+                    System.out.println("CENTURY!");
+                    break;
+                } else {
+                    System.out.println();
+                    System.out.println("Inning: " + inning + " | Total innings: " + totalInnings);
+                    System.out.println(roleMessage);
+                    score[battingRole.equals("usr") ? 0 : 1] += throwDice();
+                    System.out.println("Batsman score(total): " + score[battingRole.equals("usr") ? 0 : 1]);
+                    isNotOut = outOrNot(throwDice(), throwDice());
+                }
+            }
+            finalScore[battingRole.equals("usr") ? 1 : 0] = score[battingRole.equals("usr") ? 0 : 1];
+            score[0] = 0;
+            score[1] = 0;
+            isNotOut = true;
+        }
+    }
+
+    private static void declareResult() {
+        if (finalScore[1] > finalScore[0]) {
+            System.out.println("You won!\n" + finalScore[1] + ":" + finalScore[0]);
+        } else if (finalScore[1] < finalScore[0]) {
+            System.out.println("You lost!\n" + finalScore[1] + ":" + finalScore[0]);
+        } else {
+            System.out.println("Close Game! It was a tie! " + finalScore[0]);
+        }
+    }
+
+    private static int throwDice() {
+        System.out.println("Throw a number (1-10): ");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    private static int[] decide(String[] list1, String[] list2, String inpMsg, String warning) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print(inpMsg);
+            String input = scanner.nextLine();
+            for (String item : list1) {
+                if (item.equals(input)) {
+                    return new int[]{0, 1}; // user choice
+                }
+            }
+            for (String item : list2) {
+                if (item.equals(input)) {
+                    return new int[]{1, 0}; // computer choice
+                }
+            }
+            System.out.println(warning);
+        }
+    }
+
+    private static int[] range(int start, int end, int step) {
+        int size = (end - start) / step;
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = start + i * step;
+        }
+        return array;
+    }
+
+    private static boolean outOrNot(int playerScore, int computerScore) {
+        if (playerScore != computerScore) {
+            return true;
+        } else {
+            declareOut(battingRole);
+            return false;
+        }
+    }
+
+    private static String declareOut(String batting) {
+        return batting.equals("com") ? "You took a wicket!" : "You lost a wicket!";
+    }
+}
