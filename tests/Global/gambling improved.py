@@ -46,7 +46,7 @@ while scores[(current_player-1)]<50 and current_player <= nplayers:
         current_player = current_player + 1
         #print(current_player)
         print(f"\nEliminated ---You rolled a One. Your score is 0\nPlease pass to the next player\n"+"")
-
+#⩁㒑㒑㄁㎨ഥࢠࢠ✑㋅⬐㙥⟘ࡅ⥰〠〠⥰ⶑ⟘ࡅ♈〠⹨ࢠ✑㋅⬐㙥⟘ࢠ⢥〠ⶑ✑⟘㋅㎨ࢠॠᑁ᳥ᩅႀᮑᤁ♈୥৅ᾥ▅♈ៅॠᗸ㙥⢥ጥᓐ⍀᰸㡁㙥ៅ㙥Ựጥ㒑㒑ᄅᾥ⍀
     elif dice == 0:
         ""
     else:
