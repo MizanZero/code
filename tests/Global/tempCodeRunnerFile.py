@@ -31,5 +31,6 @@ while k!='exit()':
 		enc(k)
 		dec(v)
 	except:
-		dec(k) 
+		dec(k)
+
 
