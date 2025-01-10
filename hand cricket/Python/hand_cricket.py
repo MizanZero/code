@@ -7,7 +7,7 @@ class role(Enum):
 
 
 class player:
-    def __init__(self, name:str, role:str, score:int=0):
+    def __init__(self, name:str, role:Enum, score:int=0):
         assert role in ['bat','bowl'], "Role should be 'bat' or 'bowl'"
         assert score>=0, "Score should greater than or equal to 0"
 
