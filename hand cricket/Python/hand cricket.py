@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class role(Enum):
-    BAT=['bat','ba','at', 1]
-    BOWL=['bowl','bo','ow','wl','bow','owl', 2]
+    bat=['bat','ba','at','a','t', 1]
+    bowl=['bowl','bo','ow','wl','bow','owl', 2]
 
 
 class player:
