@@ -1,2 +1,0 @@
-
-import hand cricket.py
