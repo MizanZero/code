@@ -1,5 +1,7 @@
 from enum import Enum
 
+players=[]
+
 class Role(Enum):
     bat=['batting','bat','ba','at','a','t', 1]
     bowl=['bowling','bowl','bo','ow','wl','bow','owl','o','w', 2]
@@ -39,7 +41,5 @@ def deployBots(*roles:Role):
     for r in roles: players.append(bot('Bot', r)) 
 
 
-p1=human('Player 1', Role.bat)
-
-
+p1=player('Player 1', Role.bat)
 
