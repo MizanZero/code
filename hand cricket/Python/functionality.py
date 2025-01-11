@@ -5,8 +5,6 @@ class Role(Enum):
     bowl=['bowling','bowl','bo','ow','wl','bow','owl','o','w', 2]
     field=['fielding','field','f','i','e','d','fi','ie','el','fiel','ield', 3]
 
-players=[]
-
 
 class player:
     def __init__(self, name:str, role:Role, score:int=0): 
@@ -14,7 +12,7 @@ class player:
         assert score>=0, "Score should greater than or equal to 0"
 
         self.name=name; self.role=role; self.score=score; self.history=[]
-        players.append(self)
+        players.append(self); self.index=len(players)
 
     def decorated(self):
         return [self.type.capitalize(),self.name.capitalize(), self.role.value[0].capitalize(), self.score]
