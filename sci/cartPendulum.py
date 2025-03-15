@@ -19,7 +19,7 @@ def pendulum_eq(t,y):
     dtheta_dt = omega
     dx_dt = v
     a = cart_eq(t,y)
-    I_alpha = -m*l*a*cos(theta) - m*g*l*sin(theta) - b*omega - (1/2)*Cd*rho*A*l*l*omega*omega
+    I_alpha = -m*l*a*cos(theta) - m*g*l*sin(theta) - (1/2)*Cd*rho*A*l*l*omega*omega
     domega_dt = I_alpha / I
     dv_dt = a
     return [omega, domega_dt, v, dv_dt] # omega, alpha, v, a 
@@ -28,7 +28,7 @@ def cart_eq(t,y):
     theta, omega, x, v = y
     dtheta_dt = omega
     dx_dt = v
-    dv_dt = (F - m*l*dtheta_dt*dtheta_dt*sin(theta) - m*l*dtheta_dt*dtheta_dt*cos(theta)) / (M + m)
+    dv_dt = (F + m*l*dtheta_dt*dtheta_dt*sin(theta) - m*l*dtheta_dt*dtheta_dt*cos(theta) - b*v) / (M + m)
     return dv_dt
 
 t_span = (0,10)
