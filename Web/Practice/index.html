@@ -1,5 +1,30 @@
 <!DOCTYPE html>
 
+<style type="text/css">
+    #centred{
+        text-align: center;
+        font-size: 30px;
+        background-color: brown;
+        color: orange;
+        padding: 16px;
+        }
+    table{
+        border: 1px solid black;
+        width: 100%;
+        margin-top: 0px;
+    }
+    h3{
+        margin-bottom: 0px;
+    }
+    #buttons{
+        border: 0;
+        text-align: center;
+        padding: 5%;
+    }
+    
+</style>
+<h1 id="centred">You are logged in to the ERP website</h1>
+
 <body>
     <h1>Attendance Details</h1>
     <h2>Overall Attendance Percentage: 85.6%</h2>
@@ -332,7 +357,7 @@
 
     </form>
 
-    <table>
+    <table id="buttons">
         <tr>
             <td><button onclick="window.print()">Print</button></td>
             <td><button onclick="window.location.href='index.html'">Back</button></td>
@@ -340,5 +365,9 @@
             <td><button onclick="window.location.href='index.html'">Home</button></td>
         </tr>
     </table>
+    <br>
+
+    <div style="margin-bottom:500px"></div> <!--Takes up 500px at the bottom-->
 
 </body>
+
