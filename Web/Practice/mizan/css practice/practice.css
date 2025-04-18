@@ -1,19 +1,9 @@
-.box{
+nav ul{
     display: flex;
-    text-align: center;
-    width: 100%;
+    list-style: none;
+    background-color: #c5aa6a;
 }
 
-.red{
-    background: brown;
-    flex-grow: 1;
-}
-
-.blue{
-    background: darkcyan;
-    flex-grow: 2;
-}
-
-.bg-dark{
-    background: black
+nav ul li{
+    padding: 5px;
 }
