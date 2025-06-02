@@ -1,0 +1,23 @@
+*{
+    font-family: 'Cambria Math';
+}
+
+#mat-container{
+    flex-direction: row;
+}
+
+.display{
+    display: flex;
+    flex-shrink: 1;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    width: 1in;
+    text-align: center;
+}
+
