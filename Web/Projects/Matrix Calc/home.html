@@ -12,45 +12,36 @@
     </header>
     <main>
         <p>Welcome to the Matrix Calculator!</p>
-        
-        <div id="mat-container">
-        <div class="display">
-            <div class="column">
-                <input type="text">
-                <input type="text">
-                <input type="text" placeholder="3rd">
-            </div>
-            <div class="column">
-                <input type="text">
-                <input type="text">
-                <input type="text">
-            </div>
-            <div class="column">
-                <input type="text">
-                <input type="text">
-                <input type="text">
-            </div>
+      <form id="container">
+        <div id="calc-container">
+        <div class="matrix">
+            <div class="input-container"><input type="text" maxlength=""></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
         </div>
-
-        <div class="display">
-            <div class="column">
-                <input type="text">
-                <input type="text">
-                <input type="text" placeholder="3rd">
-            </div>
-            <div class="column">
-                <input type="text">
-                <input type="text">
-                <input type="text">
-            </div>
-            <div class="column">
-                <input type="text">
-                <input type="text">
-                <input type="text">
-            </div>
+      
+          <div class="input-container"><input id="operator-input" maxlength="1" type="value"></div>
+      
+        <div class="matrix">
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
+            <div class="input-container"><input type="value"></div>
         </div>
         </div>
-
+        <button>Calculate</button>
+      </form>
     </main>
     <footer>
         <p>&copy; 2023 Matrix Calculator</p>
