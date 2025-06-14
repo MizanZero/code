@@ -1,76 +1,53 @@
 from flask import Flask, render_template, request
+import numpy as np
+
+
+def calc(a:list[float], op:list[float], b:list[float]): #return noError:bool, result: list
+    print(a)
+    print(op)
+    print(b)
+
+    opInd = '+-*'.index(op)
+    print(opInd, '\n')
+
+    if opInd not in [0,1,2] or len(op)!=1:
+        print("Invalid operator:",op)
+        return False, [0 for _ in range(9)]
+    
+    a = np.array(a) ; b = np.array(b)
+    a = np.reshape(a,(3,3)) ; b = np.reshape(b, (3,3))
+
+    if opInd == 0: result = a+b
+    elif opInd == 1: result = a-b
+    elif opInd == 2: result = a*b
+
+    print(a,op,b, '\n')
+
+    return True, [e for r in result for e in r]
+
+
+
 
 app = Flask(__name__)
-
-
-class calc:
-    global np
-    import numpy as np
-    def add(a,b):
-        A = np.array(a)
-        B = np.array(b)
-
-        result = (A+B).reshape((3,3))
-        print(result)
-        return result
-    def sub(a,b):
-        A = np.array(a)
-        B = np.array(b)
-
-        result = (A-B).reshape((3,3))
-        print(result)
-        return result
-    def mul(a,b):
-        A = np.array(a)
-        B = np.array(b)
-
-        result = (A*B).reshape((3,3))
-        print(result)
-        return result
-    def zero():
-        return np.zeros((3,3))
-
-
-@app.route('/', methods=['GET', 'POST'])
-
+@app.route('/', methods=['GET','POST'])
 def index():
-    result = None
-    error = None
+    result = [0 for _ in range(9)]
+    noError = False
 
     if request.method == 'POST':
         try:
-            a_ = request.form.getlist('a[]')
-            b_ = request.form.getlist('b[]')
+            a = list(map(float, request.form.getlist('a[]')))
             op = request.form.get('op')
+            b = list(map(float, request.form.getlist('b[]')))
 
-            print(a_)
-            print(b_)
-            print(op)
+            print(a,op,b,'\n')
 
-            a = [0 for _ in range(9)]
-            b = a.copy()
+            noError, result = calc(a,op,b)
 
-            a = [float(x) for x in a_]
-            b = [float(x) for x in b_]
+        except:
+            noError = False
 
-            error = False
-
-            if op == '+':
-                result = calc.add(a,b)
-            elif op == '-':
-                result = calc.sub(a,b)
-            elif op == '*':
-                result = calc.mul(a,b)
-            else:
-                error = True
-
-
-        except Exception as e:
-            error = True
-            error = str(e)
-
-    print (result)
-    print()
-    return render_template("index.html", result=result, error=error, Z=calc.zero())
+    return render_template('index.html', result=result, noError=noError, Z=np.zeros((3,3))) 
 
 app.run(debug=True)
+

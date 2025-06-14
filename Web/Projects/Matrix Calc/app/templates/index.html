@@ -16,8 +16,8 @@
             <div class="matrix">
             {% for _ in range(9) %}
                 <div class="input-container"><input type="text" value="0" required name="a[]"></div>
-            {% endfor %}
-            </div>
+                {% endfor %}
+                </div>
 
             <div class="input-container">
                 <input id="operator-input" maxlength="1" type="value" name="op">
@@ -32,12 +32,14 @@
         <button>Calculate</button>
       </form>
 
-      {% if not error %}
       <h2>Result: </h2>
-      <pre>{{ result }}</pre>
-      {% endif %}
+        <div class="matrix">
+        {% for _ in range(9) %}
+            <div class="input-container"><input type="text" value="{{result[_]}}" disabled="True"></div>
+        {% endfor %}
+        </div>
 
-      {% if error %}
+      {% if noError==False %}
         <h3>Enter only numbers and a valid operator</h3>
       {% endif %}
     </main>
