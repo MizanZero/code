@@ -7,45 +7,29 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <header>
-        <h1>Matrix Calculator</h1>
-    </header>
-    <main>
-      <form id="container" method="POST">
-        <div id="calc-container">
-            <div class="matrix">
-            {% for _ in range(9) %}
-                <div class="input-container"><input type="text" value="0" required name="a[]"></div>
-                {% endfor %}
-                </div>
-
-            <div class="input-container">
-                <input id="operator-input" maxlength="1" type="value" name="op">
-            </div>
-
-            <div class="matrix">
-            {% for _ in range(9) %}
-                <div class="input-container"><input type="text" value="0" required name="b[]"></div>
-            {% endfor %}
-            </div>
-        </div>
-        <button>Calculate</button>
-      </form>
-
-      <h2>Result: </h2>
+    <h1>Matrix Calculator</h1>
+    <div id="calc">
+    <form id="calc-inp">
         <div class="matrix">
-        {% for _ in range(9) %}
-            <div class="input-container"><input type="text" value="{{result[_]}}" disabled="True"></div>
+        {% for _ in range(rows*columns) %}<input type="text" name="a[]">{% endfor %}
+        </div>
+
+        <input type="text" maxlength="1" id="op" name="op">
+
+        <div class="matrix">
+        {% for _ in range(rows*columns) %}
+            <input type="text" name="b[]">
         {% endfor %}
         </div>
 
-      {% if noError==False %}
-        <h3>Enter only numbers and a valid operator</h3>
-      {% endif %}
-    </main>
-    <br><br>
-    <footer>
-        <p>&copy; 2025 Matrix Calculator</p>
-    </footer>
+        <button> = </button>
+    </form>
+
+    <div class="matrix" id="result">
+    {% for _ in range(rows*columns) %}
+            <input type="text">
+    {% endfor %}
+    </div>
+    </div>
 </body>
 </html>
