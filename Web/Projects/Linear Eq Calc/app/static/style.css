@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: sans-serif;
+}
+
+body{
+    background-color: rgb(26, 26, 26);
+}
+
+header div{
+    background-color: rgb(78, 78, 78);
+    padding: 16;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+h1{
+    color: rgb(230, 230, 230);
+    font-size: 2em;
+    text-decoration: underline;
+}
+
+#inp-container{
+    border: 2px solid white;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 8 16 8 16;
+    margin: 32 auto 0 auto;
+}
+
+.equation{
+    font-size: 2em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.equation div {
+    display: flex;
+    height: 1.5em;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.equation div input, .result input{
+    width: 2.6em;
+    height: 2em;
+
+    outline: 0;
+    border: 0;
+    border-bottom: 2px solid gray;
+    background: transparent;
+
+    text-align: center;
+}
+
+.equation input:focus-visible{
+    border-color: white;
+}
+
+input:focus-visible{
+    outline: none;
+}
+
+.result{
+    width: 3.5em;
+
+    text-align: center;
+    font-size: 2em;
+    margin-top: 3em;
+    margin-left: 16px;
+
+    border: 2px solid white;
+
+    border-collapse: collapse;
+}
+
+.result tr{
+    border: 2px solid white;
+}
+
+.result tr td{
+    box-sizing: border-box;
+    height: 2em;
+}
+
+footer{
+    margin-top: auto;
+}
