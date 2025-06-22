@@ -1,0 +1,1 @@
+"c:/Users/Mizan/Documents/Code/Web/Projects/Linear Eq Calc/venv/Scripts/python.exe" "c:/Users/Mizan/Documents/Code/Web/Projects/Linear Eq Calc/app/app.py"

@@ -10,7 +10,7 @@ body{
 }
 
 header div{
-    background-color: rgb(78, 78, 78);
+    background-color: rgb(41, 41, 41);
     padding: 16;
 }
 
@@ -23,17 +23,28 @@ body{
 h1{
     color: rgb(230, 230, 230);
     font-size: 2em;
-    text-decoration: underline;
 }
 
 #inp-container{
-    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid rgba(255, 255, 255, 0.726);
 
     width: fit-content;
     height: fit-content;
 
     padding: 8 16 8 16;
     margin: 32 auto 0 auto;
+}
+
+#inp-container h2{
+    align-self: center;
+
+    margin-bottom: 0.5em;
+    margin-top: 0.25em;
+
+    text-decoration: underline;
 }
 
 .equation{
@@ -73,8 +84,34 @@ input:focus-visible{
     outline: none;
 }
 
+button{
+    border: 2px solid rgba(255, 255, 255, 0.151);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#solve{
+    color: rgb(255, 255, 255);
+    background-color: rgb(27, 27, 27);
+
+    height: 2.5em;
+    width: 5em;
+
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    margin-inline: auto;
+}
+
+#solve:hover{
+    background-color: rgb(48, 48, 48);
+}
+
+#solve:active{
+    background-color: rgb(66, 66, 66);
+}
+
 .result{
-    width: 3.5em;
+    width: fit-content;
 
     text-align: center;
     font-size: 2em;
@@ -86,8 +123,21 @@ input:focus-visible{
     border-collapse: collapse;
 }
 
+.result tr :first-child{
+    padding-left: 0.5em;
+}
+
+.result tr :last-child{
+    padding-right: 0.5em;
+}
+
+.result input{
+    width: 4.5em;
+    text-align: start;
+}
+
 .result tr{
-    border: 2px solid white;
+    border: 2px solid rgba(255, 255, 255, 0.658);
 }
 
 .result tr td{
