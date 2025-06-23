@@ -1,6 +1,11 @@
+const homeUrl = window.location.origin + '/start';
+
+console.log(homeUrl)
+console.log(window.location.href)
 
 for (let input of document.querySelectorAll("input")){
-    input.value = "";
-    input.autocomplete = "off";
+        input.autocomplete = "off";
+        input.inputMode = "numeric";
+        input.pattern = "[0-9]*";
 }
 

@@ -7,17 +7,56 @@
 
 body{
     background-color: rgb(26, 26, 26);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#login-box{
+    border: 2px solid rgb(216, 216, 216);
+    width: 2.75in;
+    min-height: auto;
+    overflow-wrap: anywhere;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: auto;
+
+    padding: 1em;
+    margin-top: 20%;
+}
+
+#login-box h2{
+    margin-bottom: 0.5em;
+    text-decoration: underline;
+}
+
+#login-box button{
+    color: gray;
+    background-color: black;
+
+    height: 2em;
+    width: 20%;
+
+    align-self: center;
+
+    margin-top: 0.5em;
+
+    font-weight: bold;
+}
+
+main#container{
+    display: flex;
+    margin: 32 auto 16 auto;
+    align-items: center;
+    gap: 1em;
 }
 
 header div{
     background-color: rgb(41, 41, 41);
     padding: 16;
-}
-
-body{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
 }
 
 h1{
@@ -35,7 +74,6 @@ h1{
     height: fit-content;
 
     padding: 8 16 8 16;
-    margin: 32 auto 0 auto;
 }
 
 #inp-container h2{
@@ -72,8 +110,14 @@ h1{
     border: 0;
     border-bottom: 2px solid gray;
     background: transparent;
+}
 
-    text-align: center;
+.equation input{
+    text-align: end;
+}
+
+.result input{
+    text-align: start;
 }
 
 .equation input:focus-visible{
@@ -112,11 +156,12 @@ button{
 
 .result{
     width: fit-content;
+    max-height: 6em;
 
     text-align: center;
     font-size: 2em;
-    margin-top: 3em;
-    margin-left: 16px;
+    margin-top: 0;
+    margin-left: 0;
 
     border: 2px solid white;
 
@@ -147,4 +192,20 @@ button{
 
 footer{
     margin-top: auto;
+}
+
+@media (max-aspect-ratio: 1) {
+    .equation{
+    font-size: 1.5em;
+    }
+
+    .equation div input, .result input{
+    width: 1.95em;
+    }
+
+    main#container{
+    flex-direction: column;
+    align-items: flex-start;
+    }
+
 }

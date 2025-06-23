@@ -1,13 +1,30 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session
 import numpy as np
+import sqlite3
+import os, sys
+import time
 
+os.chdir(os.path.dirname(os.path.abspath(sys.argv[0]))) # set current dir as app dir
+appDir = os.getcwd().replace('\\', '/') # store app dir as a string, windows uses '\' in folder names, replace them with '/'
+
+def dbExecute(command: str):
+    with sqlite3.connect(appDir + "/static/users.db") as connection:
+        cursor = connection.cursor()
+        data = cursor.execute(command)
+    return data
+class createUser:
+    def __init__(self, ip):
+        self.previousInp = None
+        self.ip = ip
+        dbExecute(f"INSERT INTO user VALUES('{self.ip}')")
 
 def checkInputValid(*eqs):
     invalIndex = []
     
-    for i in range(len(eqs)):
-        for j in range(i):
-            if not eqs[i][j].isnumeric():
+    for i in range(3):
+        for j in range(3):
+            n = eqs[i][j]
+            if not n.isnumeric():
                 invalIndex.append((i,j))
     if invalIndex: return False
     else: return True
@@ -38,18 +55,44 @@ def solutionOf(*eqs):
     return x,y,z
 
 app = Flask(__name__)
+app.secret_key = 'dimag_me_keeday'
 
+# checks timeout before each request
+@app.before_request
+def checkUserTimeOut():
+    if 'last_seen' in session:
+        if time.time() - session['last_seen'] > 300:
+            session.clear()
+    session['last_seen'] = time.time()
+
+# JS sends pings on /ping
+@app.route('/ping')
+def ping():
+    session['last_seen'] = time.time()
+    return '', 204
 
 @app.route('/')
-def index():
+def enter():
+    return redirect('/login')
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        ip = request.environ['REMOTE_ADDR']
+    else:
+        ip = request.environ['HTTP_X_FORWARDED_FOR']
+    ipList = dbExecute("SELECT IP[0] FROM user").fetchall()
+    if ip not in [ip[0] for ip in ipList]:
+        createUser(ip)
+    return render_template('login.html', ip = ip)
+
+@app.route('/start', methods = ['POST','GET'])
+def start():
     eq1 = eq2 = eq3 = [0,0,0,0]
-    return render_template('home.html', eq = (eq1, eq2, eq3), result=('',''), varNm = ('x', 'y', 'z'))
+    return render_template('home.html', eq = (eq1, eq2, eq3), result=('',''), varNm=('x', 'y', 'z'))
 
 @app.route('/calculate', methods = ['POST'])
 def calculate():
-    x=float()
-    y=float()
-
     if request.method == 'POST':
         eq1 = [0 for _ in range(4)]
         eq2 = [0 for _ in range(4)]
@@ -59,9 +102,13 @@ def calculate():
         eq2 = request.form.getlist('eq2')
         eq3 = request.form.getlist('eq3')
 
+        print(eq1, eq2, eq3)
+
         if checkInputValid(eq1, eq2, eq3):
             x,y,z = solutionOf(eq1, eq2, eq3)
-            if x == 0: x = 0.0
+            if x == int(x): x = int(x)
+            if y == int(y): y = int(y)
+            if z == int(z): z = int(z)
         else:
             x,y,z = ['','','']
             
@@ -69,3 +116,5 @@ def calculate():
     return render_template('home.html', result=(x,y,z), eq = (eq1, eq2, eq3), varNm = ('x', 'y', 'z'))
     
 app.run(debug=True)
+
+print(dbExecute("SELECT IP FROM user").fetchall())
