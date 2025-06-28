@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, url_for ,session
 import numpy as np
 import sqlite3
 import os, sys
@@ -12,6 +12,7 @@ def dbExecute(command: str):
         cursor = connection.cursor()
         data = cursor.execute(command)
     return data
+
 class createUser:
     def __init__(self, ip):
         self.previousInp = None
@@ -57,21 +58,27 @@ def solutionOf(*eqs):
 app = Flask(__name__)
 app.secret_key = 'dimag_me_keeday'
 
-# checks timeout before each request
 @app.before_request
-def checkUserTimeOut():
+def before_request():
     if 'last_seen' in session:
-        if time.time() - session['last_seen'] > 300:
-            session.clear()
-    session['last_seen'] = time.time()
+        if time.time() - session['last_seen'] > 15:
+            session['status'] = 'disconnected'
+            return redirect('/disconnected')
 
 # JS sends pings on /ping
 @app.route('/ping')
 def ping():
+    if session['status'] == 'disconnected': return before_request()
     session['last_seen'] = time.time()
     return '', 204
 
-@app.route('/')
+@app.route('/disconnected')
+def disconnected():
+    session['last_seen'] = time.time()
+    session.clear()
+    return render_template('offline.html')
+
+@app.route('/', methods = ['POST', 'GET'])
 def enter():
     return redirect('/login')
 
@@ -81,17 +88,17 @@ def login():
         ip = request.environ['REMOTE_ADDR']
     else:
         ip = request.environ['HTTP_X_FORWARDED_FOR']
-    ipList = dbExecute("SELECT IP[0] FROM user").fetchall()
+    ipList = dbExecute("SELECT IP FROM user").fetchall()
+
+    session['user'] = ip
+    print(f"{ip} logged in")
     if ip not in [ip[0] for ip in ipList]:
         createUser(ip)
-    return render_template('login.html', ip = ip)
+        return render_template('login.html', ip = ip)
+    else:
+        return redirect('/calculate')
 
-@app.route('/start', methods = ['POST','GET'])
-def start():
-    eq1 = eq2 = eq3 = [0,0,0,0]
-    return render_template('home.html', eq = (eq1, eq2, eq3), result=('',''), varNm=('x', 'y', 'z'))
-
-@app.route('/calculate', methods = ['POST'])
+@app.route('/calculate', methods = ['POST', 'GET'])
 def calculate():
     if request.method == 'POST':
         eq1 = [0 for _ in range(4)]
@@ -110,11 +117,13 @@ def calculate():
             if y == int(y): y = int(y)
             if z == int(z): z = int(z)
         else:
-            x,y,z = ['','','']
-            
-
-    return render_template('home.html', result=(x,y,z), eq = (eq1, eq2, eq3), varNm = ('x', 'y', 'z'))
+            x,y,z = ['','','']          
+        return render_template('home.html', result=(x,y,z), eq = (eq1, eq2, eq3), varNm = ('x', 'y', 'z'))
     
+    elif request.method == 'GET':
+        eq1 = eq2 = eq3 = [0,0,0,0]
+        return render_template('home.html', eq = (eq1, eq2, eq3), result=('',''), varNm=('x', 'y', 'z'))
+
 app.run(debug=True)
 
 print(dbExecute("SELECT IP FROM user").fetchall())

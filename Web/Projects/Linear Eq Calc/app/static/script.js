@@ -9,3 +9,5 @@ for (let input of document.querySelectorAll("input")){
         input.pattern = "[0-9]*";
 }
 
+setInterval(() => fetch('/ping'), 10000);
+
