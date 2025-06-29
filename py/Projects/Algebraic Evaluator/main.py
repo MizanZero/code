@@ -27,6 +27,9 @@ class expression():
     class token():
         def __init__(self, type:int, index:int):
             self.type = type
+            #1. seperate const
+            #2. separate var
+            #3. coeff*var
             self.index = index
 
 
