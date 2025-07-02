@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for ,session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import numpy as np
 import sqlite3
 import os, sys
@@ -13,11 +13,19 @@ def dbExecute(command: str):
         data = cursor.execute(command)
     return data
 
-class createUser:
+def createUser():
     def __init__(self, ip):
         self.previousInp = None
         self.ip = ip
         dbExecute(f"INSERT INTO user VALUES('{self.ip}')")
+
+def getIp():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        ip = request.environ['REMOTE_ADDR']
+    else:
+        ip = request.environ['HTTP_X_FORWARDED_FOR']
+    ipList = dbExecute("SELECT IP FROM user").fetchall()
+    return ip, ipList
 
 def checkInputValid(*eqs):
     invalIndex = []
@@ -59,24 +67,26 @@ app = Flask(__name__)
 app.secret_key = 'dimag_me_keeday'
 
 @app.before_request
-def before_request():
-    if 'last_seen' in session:
-        if time.time() - session['last_seen'] > 15:
-            session['status'] = 'disconnected'
-            return redirect('/disconnected')
+def restrict_access():
+    allowed_routes = ['login', 'offline', 'static']  # add 'static' to serve css/js
+    if 'user' not in session and request.endpoint not in allowed_routes:
+        return redirect(url_for('login'))
 
-# JS sends pings on /ping
+@app.before_request
+def offlineCheck():
+    if ('last_seen' in session) and ( request.endpoint in ('ping', 'calculate') ):
+        if time.time() - session['last_seen'] > 7:
+            print("Cleared session:", session['user'])
+            session.clear()
+            if request.endpoint == 'ping':
+                return jsonify({'status': 'offline'}), 440
+            return redirect('/offline')
+
+# JS sends pings to /ping
 @app.route('/ping')
 def ping():
-    if session['status'] == 'disconnected': return before_request()
     session['last_seen'] = time.time()
     return '', 204
-
-@app.route('/disconnected')
-def disconnected():
-    session['last_seen'] = time.time()
-    session.clear()
-    return render_template('offline.html')
 
 @app.route('/', methods = ['POST', 'GET'])
 def enter():
@@ -84,12 +94,7 @@ def enter():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        ip = request.environ['REMOTE_ADDR']
-    else:
-        ip = request.environ['HTTP_X_FORWARDED_FOR']
-    ipList = dbExecute("SELECT IP FROM user").fetchall()
-
+    ip, ipList = getIp()
     session['user'] = ip
     print(f"{ip} logged in")
     if ip not in [ip[0] for ip in ipList]:
@@ -97,6 +102,13 @@ def login():
         return render_template('login.html', ip = ip)
     else:
         return redirect('/calculate')
+
+@app.route('/offline')
+def offline():
+    ip, ipList = getIp()
+    if ('user' not in session) and (ip in ipList):
+        session['user'] = ip
+    return render_template('offline.html')
 
 @app.route('/calculate', methods = ['POST', 'GET'])
 def calculate():
@@ -127,3 +139,4 @@ def calculate():
 app.run(debug=True)
 
 print(dbExecute("SELECT IP FROM user").fetchall())
+
