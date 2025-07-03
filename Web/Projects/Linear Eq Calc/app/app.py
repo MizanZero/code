@@ -14,10 +14,9 @@ def dbExecute(command: str):
     return data
 
 def createUser():
-    def __init__(self, ip):
-        self.previousInp = None
-        self.ip = ip
-        dbExecute(f"INSERT INTO user VALUES('{self.ip}')")
+    self.previousInp = None
+    self.ip = ip
+    dbExecute(f"INSERT INTO user VALUES('{self.ip}')")
 
 def getIp():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
