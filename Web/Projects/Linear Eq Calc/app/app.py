@@ -13,10 +13,8 @@ def dbExecute(command: str):
         data = cursor.execute(command)
     return data
 
-def createUser():
-    self.previousInp = None
-    self.ip = ip
-    dbExecute(f"INSERT INTO user VALUES('{self.ip}')")
+def createUser(ip):
+    dbExecute(f"INSERT INTO user VALUES('{ip}')")
 
 def getIp():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -27,6 +25,7 @@ def getIp():
     return ip, ipList
 
 def checkInputValid(*eqs):
+    if not eqs: eqs = [[0,0,0],[0,0,0],[0,0,0]]
     invalIndex = []
     
     for i in range(3):
@@ -67,7 +66,8 @@ app.secret_key = 'dimag_me_keeday'
 
 @app.before_request
 def restrict_access():
-    allowed_routes = ['login', 'offline', 'static']  # add 'static' to serve css/js
+    return
+    allowed_routes = ['','login', 'offline', 'static']  # add 'static' to serve css/js
     if 'user' not in session and request.endpoint not in allowed_routes:
         return redirect(url_for('login'))
 
@@ -80,6 +80,9 @@ def offlineCheck():
             if request.endpoint == 'ping':
                 return jsonify({'status': 'offline'}), 440
             return redirect('/offline')
+        elif time.time() - session['last_seen'] > 60:
+            session['last_seen'] = time.time()
+            session.clear()
 
 # JS sends pings to /ping
 @app.route('/ping')
@@ -93,6 +96,7 @@ def enter():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    return redirect('/calculate')
     ip, ipList = getIp()
     session['user'] = ip
     print(f"{ip} logged in")
@@ -122,18 +126,21 @@ def calculate():
 
         print(eq1, eq2, eq3)
 
+        x,y,z = ['','','']
+
         if checkInputValid(eq1, eq2, eq3):
-            x,y,z = solutionOf(eq1, eq2, eq3)
-            if x == int(x): x = int(x)
-            if y == int(y): y = int(y)
-            if z == int(z): z = int(z)
-        else:
-            x,y,z = ['','','']          
+            try:
+                x,y,z = solutionOf(eq1, eq2, eq3)
+                if x == int(x): x = int(x)
+                if y == int(y): y = int(y)
+                if z == int(z): z = int(z)
+            except:
+                return render_template('error.html', result=[x,y,z], eq = (eq1, eq2, eq3), varNm = ('x', 'y', 'z'))         
         return render_template('home.html', result=(x,y,z), eq = (eq1, eq2, eq3), varNm = ('x', 'y', 'z'))
     
     elif request.method == 'GET':
         eq1 = eq2 = eq3 = [0,0,0,0]
-        return render_template('home.html', eq = (eq1, eq2, eq3), result=('',''), varNm=('x', 'y', 'z'))
+        return render_template('home.html', eq = (eq1, eq2, eq3), result=('','',''), varNm=('x', 'y', 'z'))
 
 app.run(debug=True)
 

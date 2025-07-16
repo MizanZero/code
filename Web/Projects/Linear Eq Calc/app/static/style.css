@@ -15,7 +15,6 @@ body{
 #login-box, #offline-msg{
     border: 2px solid rgb(216, 216, 216);
     min-width: 2.75in;
-    min-height: auto;
     overflow-wrap: anywhere;
 
     display: flex;
@@ -33,7 +32,7 @@ body{
     text-decoration: underline;
 }
 
-#login-box, #offline-msg button{
+#login-box button, #offline-msg button{
     box-sizing: border-box;
 
     color: gray;
